@@ -35,10 +35,7 @@ import ca.ualberta.cmput301w19t05.sharebook.customizedWidgets.MyRecyclerViewAdap
 import static android.support.constraint.Constraints.TAG;
 
 public final class MyShelfFragment extends Fragment {
-    private MyRecyclerViewAdapter availableAdapter;
-    private MyRecyclerViewAdapter requestedAdapter;
-    private MyRecyclerViewAdapter acceptedAdapter;
-    private MyRecyclerViewAdapter borrowedAdapter;
+    private MyRecyclerViewAdapter adapter;
     private FirebaseHandler firebaseHandler;
 
     @Nullable
@@ -59,79 +56,50 @@ public final class MyShelfFragment extends Fragment {
             }
         });
         firebaseHandler = new FirebaseHandler(getContext());
-        initAdapter(availableAdapter, "available");
-        initAdapter(requestedAdapter, "requested");
-        initAdapter(acceptedAdapter, "accepted");
-        initAdapter(borrowedAdapter, "borrowed");
+        initRecyclerView();
 
     }
 
-
-    private void initAdapter(MyRecyclerViewAdapter adapter, String status) {
-        RecyclerView recyclerView;
-        if (status.equals("available")) {
-            recyclerView = getView().findViewById(R.id.available_list);
-        } else if (status.equals("requested")) {
-            recyclerView = getView().findViewById(R.id.requested_list);
-        } else if (status.equals("accepted")) {
-            recyclerView = getView().findViewById(R.id.accepted_list);
-        } else {
-            recyclerView = getView().findViewById(R.id.borrowed_list);
-        }
-
+    private void initRecyclerView() {
+        RecyclerView recyclerView = getView().findViewById(R.id.available_list);
         LinearLayoutManager verticalLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(verticalLayoutManager);
 
         adapter = new MyRecyclerViewAdapter(getActivity(), new ArrayList<Book>());
-        final MyRecyclerViewAdapter finalAdapter = adapter;
         adapter.setClickListener(new MyRecyclerViewAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 Log.d(TAG, "setClickListener: clicked");
 
                 Intent intent = new Intent(getActivity(), BookDetailActivity.class);
-                intent.putExtra("book", finalAdapter.getItem(position));
+                intent.putExtra("book", adapter.getItem(position));
                 startActivity(intent);
 
             }
         });
 
         recyclerView.setAdapter(adapter);
-        onlineDatabaseListener(adapter, status);
+        onlineDatabaseListener();
 
 
     }
 
 
-    private void onlineDatabaseListener(final MyRecyclerViewAdapter adapter, final String status) {
+    private void onlineDatabaseListener() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("books").child(firebaseHandler.getCurrentUser().getUserID());
 
         reference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Book temp = dataSnapshot.getValue(Book.class);
-                if (temp != null && temp.getStatus().equals(status)) {
-                    adapter.addBook(temp);
-                }
-
+                adapter.addBook(temp);
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
                 Book temp = dataSnapshot.getValue(Book.class);
-                if (temp.getStatus().equals(status)) {
-                    if (adapter.contains(temp)) {
-                        adapter.changeBook(temp);
-                    } else {
-                        adapter.addBook(temp);
-                    }
-                } else {
-                    if (adapter.contains(temp)) {
-                        adapter.removeBook(temp);
-                    }
-                }
-                //adapter.changeBook(temp);
+                adapter.changeBook(temp);
             }
 
             @Override
