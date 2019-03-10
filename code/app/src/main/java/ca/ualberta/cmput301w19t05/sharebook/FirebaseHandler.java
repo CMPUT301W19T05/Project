@@ -67,6 +67,10 @@ public class FirebaseHandler {
 
     }
 
+    public void editUser(User user){
+        database.getReference("username_email_tuple").child(user.getUsername()).setValue(user.getEmail());
+    }
+
     public void uploadImage(String name, Bitmap bp) {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
