@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ShareBook</string>
+    <string name="app_name">libraryTracker</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email or Username</string>
     <string name="prompt_password">Password</string>

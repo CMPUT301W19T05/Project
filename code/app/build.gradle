@@ -5,7 +5,7 @@ apply plugin: 'kotlin-android'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "ca.ualberta.cmput301w19t05.sharebook"
+        applicationId "ca.ualberta.cmput301f20t08.libraryTracker"
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 1

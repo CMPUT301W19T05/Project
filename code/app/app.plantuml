@@ -2,283 +2,283 @@
 
 title __APP's Class Diagram__\n
 
-  package ca.ualberta.cmput301w19t05.sharebook {
-    package ca.ualberta.cmput301w19t05.sharebook.cloudMessage {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
+    package ca.ualberta.cmput301f20t08.libraryTracker.cloudMessage {
       interface APIServer {
       }
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
-    package ca.ualberta.cmput301w19t05.sharebook.fragments {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
+    package ca.ualberta.cmput301f20t08.libraryTracker.fragments {
       class AcceptedFragment {
       }
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
-    package ca.ualberta.cmput301w19t05.sharebook.activities {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
+    package ca.ualberta.cmput301f20t08.libraryTracker.activities {
       class AddBookActivity {
       }
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
     class AddBookTest {
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
-    package ca.ualberta.cmput301w19t05.sharebook.models {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
+    package ca.ualberta.cmput301f20t08.libraryTracker.models {
       class Book {
       }
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
-    package ca.ualberta.cmput301w19t05.sharebook.activities {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
+    package ca.ualberta.cmput301f20t08.libraryTracker.activities {
       class BookDetailActivity {
       }
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
     class BookDetailTest {
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
-    package ca.ualberta.cmput301w19t05.sharebook.fragments {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
+    package ca.ualberta.cmput301f20t08.libraryTracker.fragments {
       class BorrowingFragment {
       }
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
     class BuildConfig {
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
-    package ca.ualberta.cmput301w19t05.sharebook.models {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
+    package ca.ualberta.cmput301f20t08.libraryTracker.models {
       class Data {
       }
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
     class ExampleInstrumentedTest {
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
-    package ca.ualberta.cmput301w19t05.sharebook.tools {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
+    package ca.ualberta.cmput301f20t08.libraryTracker.tools {
       class FirebaseHandler {
       }
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
-    package ca.ualberta.cmput301w19t05.sharebook.tools {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
+    package ca.ualberta.cmput301f20t08.libraryTracker.tools {
       class ISBNAdapter {
       }
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
-    package ca.ualberta.cmput301w19t05.sharebook.tools {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
+    package ca.ualberta.cmput301f20t08.libraryTracker.tools {
       class ISBNWebAPIAdapter {
       }
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
-    package ca.ualberta.cmput301w19t05.sharebook.activities {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
+    package ca.ualberta.cmput301f20t08.libraryTracker.activities {
       class LoginActivity {
       }
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
     class LoginTest {
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
-    package ca.ualberta.cmput301w19t05.sharebook.activities {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
+    package ca.ualberta.cmput301f20t08.libraryTracker.activities {
       class MainActivity {
       }
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
-    package ca.ualberta.cmput301w19t05.sharebook.activities {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
+    package ca.ualberta.cmput301f20t08.libraryTracker.activities {
       class MapsActivity {
       }
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
-    package ca.ualberta.cmput301w19t05.sharebook.cloudMessage {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
+    package ca.ualberta.cmput301f20t08.libraryTracker.cloudMessage {
       class MyFirebaseMessagingService {
       }
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
-    package ca.ualberta.cmput301w19t05.sharebook.tools {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
+    package ca.ualberta.cmput301f20t08.libraryTracker.tools {
       class MyRecyclerViewAdapter {
       }
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
-    package ca.ualberta.cmput301w19t05.sharebook.cloudMessage {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
+    package ca.ualberta.cmput301f20t08.libraryTracker.cloudMessage {
       class MyResponse {
       }
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
-    package ca.ualberta.cmput301w19t05.sharebook.fragments {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
+    package ca.ualberta.cmput301f20t08.libraryTracker.fragments {
       class MyShelfFragment {
       }
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
-    package ca.ualberta.cmput301w19t05.sharebook.cloudMessage {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
+    package ca.ualberta.cmput301f20t08.libraryTracker.cloudMessage {
       class Notification {
       }
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
-    package ca.ualberta.cmput301w19t05.sharebook.tools {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
+    package ca.ualberta.cmput301f20t08.libraryTracker.tools {
       class NotificationAdapter {
       }
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
-    package ca.ualberta.cmput301w19t05.sharebook.fragments {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
+    package ca.ualberta.cmput301f20t08.libraryTracker.fragments {
       class NotificationFragment {
       }
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
-    package ca.ualberta.cmput301w19t05.sharebook.activities {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
+    package ca.ualberta.cmput301f20t08.libraryTracker.activities {
       class Register {
       }
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
     class RegisterTest {
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
-    package ca.ualberta.cmput301w19t05.sharebook.tools {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
+    package ca.ualberta.cmput301f20t08.libraryTracker.tools {
       class RequestAdapter {
       }
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
-    package ca.ualberta.cmput301w19t05.sharebook.fragments {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
+    package ca.ualberta.cmput301f20t08.libraryTracker.fragments {
       class RequestListFragment {
       }
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
-    package ca.ualberta.cmput301w19t05.sharebook.cloudMessage {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
+    package ca.ualberta.cmput301f20t08.libraryTracker.cloudMessage {
       class Result {
       }
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
-    package ca.ualberta.cmput301w19t05.sharebook.cloudMessage {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
+    package ca.ualberta.cmput301f20t08.libraryTracker.cloudMessage {
       class RetroFitClient {
       }
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
-    package ca.ualberta.cmput301w19t05.sharebook.activities {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
+    package ca.ualberta.cmput301f20t08.libraryTracker.activities {
       class ScanActivity {
       }
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
-    package ca.ualberta.cmput301w19t05.sharebook.tools {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
+    package ca.ualberta.cmput301f20t08.libraryTracker.tools {
       class SearchBookAdapter {
       }
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
-    package ca.ualberta.cmput301w19t05.sharebook.cloudMessage {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
+    package ca.ualberta.cmput301f20t08.libraryTracker.cloudMessage {
       class Sender {
       }
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
-    package ca.ualberta.cmput301w19t05.sharebook.models {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
+    package ca.ualberta.cmput301f20t08.libraryTracker.models {
       class User {
       }
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
-    package ca.ualberta.cmput301w19t05.sharebook.activities {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
+    package ca.ualberta.cmput301f20t08.libraryTracker.activities {
       class UserProfile {
       }
     }
   }
   
 
-  package ca.ualberta.cmput301w19t05.sharebook {
+  package ca.ualberta.cmput301f20t08.libraryTracker {
     class UserProfileTest {
     }
   }
