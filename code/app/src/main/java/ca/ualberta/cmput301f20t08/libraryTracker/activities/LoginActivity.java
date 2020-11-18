@@ -50,13 +50,6 @@ public class LoginActivity extends AppCompatActivity{
     public static final int PASSWORD_LENGTH = 4;
 
 
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
-    private FirebaseDatabase database;
-    private DatabaseReference myRef;
-    final static String DATABASE_URL = "https://libraryTracker-80fa6.firebaseio.com";
-
     // UI references.
     private EditText mEmailView;
     private EditText mPasswordView;
@@ -265,12 +258,12 @@ public class LoginActivity extends AppCompatActivity{
 
 
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
+
         return email.contains("@");
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
+
         return password.length() > PASSWORD_LENGTH;
     }
 

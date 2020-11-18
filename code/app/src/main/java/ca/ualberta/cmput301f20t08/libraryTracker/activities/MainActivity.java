@@ -45,12 +45,10 @@ public class MainActivity extends AppCompatActivity
     private NotificationFragment notificationFragment;
     private NavigationView drawerNavigationView;
     private BottomNavigationView bottomNavigationView;
-    private FloatingActionButton sign_out_button;
     private View headerView;
     private FirebaseUser user;
     private Fragment[] fragments;
     private int lastFragment;
-    private FragmentManager supportFragmentManager;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
