@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,10 +26,7 @@ import ca.ualberta.cmput301f20t08.libraryTracker.models.Book;
  * Tools for handling search book from book list
  *
  */
-public class SearchBookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
-    private final int VIEW_TYPE_ITEM = 0;
-    private final int VIEW_TYPE_LOADING = 1;
+public class SearchBookAdapter extends RecyclerView.Adapter<SearchBookAdapter.ViewHolder> {
 
     private List<Book> bookList;
     private ArrayList<Book> filteredBook;
@@ -55,6 +53,7 @@ public class SearchBookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 .equals(book.getStatus()))){
             bookList.add(0, book);
             getFilter().filter(constraintString);
+            notifyItemInserted(0);
         }
 
     }
@@ -62,6 +61,7 @@ public class SearchBookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         bookList = new ArrayList<>();
         filteredBook = new ArrayList<>();
+        notifyDataSetChanged();
 
 
     }
@@ -135,25 +135,19 @@ public class SearchBookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (viewType == VIEW_TYPE_ITEM) {
-            View view = mInflater.inflate(R.layout.item_book_vertical, parent, false);
-            return new BookViewHolder(view);
-        } else {
-            View view = mInflater.inflate(R.layout.item_loading, parent, false);
-            return new LoadingViewHolder(view);
-        }
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = mInflater.inflate(R.layout.item_book_vertical, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-
-        if (viewHolder instanceof BookViewHolder) {
-
-            populateItemRows((BookViewHolder) viewHolder, position);
-        } else if (viewHolder instanceof LoadingViewHolder) {
-            showLoadingView((LoadingViewHolder) viewHolder, position);
-        }
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
+        Book book = filteredBook.get(position);
+        Glide.with(mContext).load(Uri.parse(book.getPhoto()))
+                .into(viewHolder.cover);
+        viewHolder.title.setText(book.getTitle());
+        viewHolder.author.setText(book.getAuthor());
+        viewHolder.owner.setText(book.getOwner().getUsername());
 
     }
 
@@ -166,32 +160,14 @@ public class SearchBookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return filteredBook == null ? 0 : filteredBook.size();
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        return filteredBook.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
-    }
 
     public void setClickListener(ItemClickListener itemClickListener) {
 
         this.mClickListener = itemClickListener;
     }
 
-    private void showLoadingView(LoadingViewHolder viewHolder, int position) {
-        //ProgressBar would be displayed
-
-    }
-
-    private void populateItemRows(BookViewHolder holder, int position) {
-
-        Book book = filteredBook.get(position);
-        Glide.with(mContext).load(Uri.parse(book.getPhoto()))
-                .into(holder.cover);
-        holder.title.setText(book.getTitle());
-        holder.author.setText(book.getAuthor());
-        holder.owner.setText(book.getOwner().getUsername());
 
 
-    }
     public static boolean containsAllWords(String word, String ...keywords) {
         if (word ==null || word.isEmpty()){
             return false;
@@ -213,7 +189,7 @@ public class SearchBookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 } else {
                     ArrayList<Book> FilteredList = new ArrayList<>();
                     for (Book it : bookList) {
-                        if (containsAllWords(it.getDescription(),constraintList)){
+                        if (containsAllWords(it.getAllDescription(),constraintList)){
                             FilteredList.add(it);
                         }
                     }
@@ -228,22 +204,20 @@ public class SearchBookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 filteredBook = (ArrayList<Book>) results.values;
                 notifyDataSetChanged();
+                Log.d("filteredBook", "publishResults: "+ filteredBook.size());
             }
         };
     }
 
-    public interface ItemClickListener {
-        void onItemClick(View view, int position);
-    }
 
-    private class BookViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private ImageView cover;
         private TextView title;
         private TextView author;
         private TextView owner;
 
-        public BookViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
             cover = itemView.findViewById(R.id.reach_res_cover);
             title = itemView.findViewById(R.id.reach_res_title);
@@ -259,14 +233,8 @@ public class SearchBookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    private class LoadingViewHolder extends RecyclerView.ViewHolder {
-
-        ProgressBar progressBar;
-
-        public LoadingViewHolder(@NonNull View itemView) {
-            super(itemView);
-            progressBar = itemView.findViewById(R.id.progressBar);
-        }
+    public interface ItemClickListener {
+        void onItemClick(View view, int position);
     }
 
 

@@ -7,9 +7,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,13 +44,15 @@ public class UserProfile extends AppCompatActivity {
 
 
     private ImageView viewUserImage;
-    private TextView viewUserName;
-    private TextView viewUserEmail;
+    private EditText viewUserName;
+    private EditText viewUserEmail;
     private FirebaseUser user;
     ProgressDialog progressDialog;
     private DatabaseReference reference;
     private FirebaseHandler firebaseHandler;
-    private String TAG;
+    private Toolbar editProfileToolBar;
+    private String TAG = "EditProfile";
+    private ImageButton editOrSave;
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(final View v) {
@@ -113,7 +119,7 @@ public class UserProfile extends AppCompatActivity {
                                     }
                                 });
 
-                                
+
                             }
 
 
@@ -187,19 +193,22 @@ public class UserProfile extends AppCompatActivity {
         viewUserImage = findViewById(R.id.UserImage);
         viewUserName = findViewById(R.id.UserName);
         viewUserEmail = findViewById(R.id.UserEmail);
+        editProfileToolBar = findViewById(R.id.edit_profile_toolbar);
+        editOrSave = findViewById(R.id.edit_or_save);
         Intent intent = getIntent();
         final User owner = intent.getParcelableExtra("owner");
         if (owner != null) {
+
             viewUserName.setText(owner.getUsername());
             viewUserEmail.setText(owner.getEmail());
             final TextView userScore = findViewById(R.id.UserRate);
-            userScore.setVisibility(View.VISIBLE);
+//            userScore.setVisibility(View.VISIBLE);
             firebaseHandler.getMyRef().child(getString(R.string.db_username_email_tuple))
                     .child(owner.getUserID()).child("rates").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    List<Long> temp = (ArrayList<Long>)dataSnapshot.getValue();
-                    if (temp!=null&&!temp.isEmpty()){
+                    List<Long> temp = (ArrayList<Long>) dataSnapshot.getValue();
+                    if (temp != null && !temp.isEmpty()) {
                         owner.setRates((ArrayList<Long>) temp);
                         userScore.setText(String.format("rate: %.2f/10 (%d)", owner.average(), owner.getRates().size()));
                     }
@@ -212,15 +221,17 @@ public class UserProfile extends AppCompatActivity {
             });
 
 
-
         } else {
+            editOrSave.setVisibility(View.VISIBLE);
+            editOrSave.setImageResource(R.drawable.ic_create_black_18dp);
             viewUserName.setText(user.getDisplayName());
             viewUserEmail.setText(user.getEmail());
-            viewUserEmail.setOnClickListener(onClickListener);
-            viewUserName.setOnClickListener(onClickListener);
+            setSupportActionBar(editProfileToolBar);
+
+
+//            viewUserEmail.setOnClickListener(onClickListener);
+//            viewUserName.setOnClickListener(onClickListener);
         }
-
-
 
 
     }
@@ -235,4 +246,65 @@ public class UserProfile extends AppCompatActivity {
             progressDialog.dismiss();
     }
 
+    public void toggleEditState(View view) {
+
+
+        boolean CurrentImageState = !editOrSave.isSelected();
+        Log.d(TAG, "toggleEditState: " + CurrentImageState);
+        viewUserName.setEnabled(CurrentImageState);
+        viewUserEmail.setEnabled(CurrentImageState);
+        editOrSave.setSelected(CurrentImageState);
+        if (CurrentImageState) {
+            editOrSave.setImageResource(R.drawable.ic_save_24px);
+        } else {
+            editOrSave.setImageResource(R.drawable.ic_create_black_18dp);
+            progressDialog.setMessage("updating your profile...");
+            showDialog();
+
+            reference
+                    .orderByChild("username")
+                    .equalTo(viewUserName.getText().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getValue() == null) {
+                        updateUsername(viewUserName.getText().toString());
+                        reference
+                                .orderByChild("email")
+                                .equalTo(viewUserEmail.getText().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.getValue() == null) {
+                                    updateEmail(viewUserEmail.getText().toString());
+                                } else {
+                                    hideDialog();
+                                    Toast.makeText(UserProfile.this, "update email failed", Toast.LENGTH_SHORT).show();
+                                    progressDialog.setMessage(null);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                Toast.makeText(UserProfile.this, databaseError.toString(), Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+
+                    } else {
+                        hideDialog();
+                        Toast.makeText(UserProfile.this, "username exists", Toast.LENGTH_SHORT).show();
+                        progressDialog.setMessage(null);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(UserProfile.this, databaseError.toString(), Toast.LENGTH_SHORT).show();
+
+                }
+            });
+
+
+        }
+
+    }
 }

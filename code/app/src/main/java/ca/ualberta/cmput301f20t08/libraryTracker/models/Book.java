@@ -138,6 +138,15 @@ public class Book implements Parcelable {
     public String getDescription() {
         return description;
     }
+    public String getAllDescription(){
+        return
+        title+
+        author+
+        ISBN+
+        owner.getUsername()+
+        description;
+
+    }
 
     public void setDescription(String description) {
         this.description = description;

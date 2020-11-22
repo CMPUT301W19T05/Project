@@ -282,7 +282,7 @@ public class FirebaseHandler {
 
                                 }
                                 else {
-                                    Toast.makeText(mContext, "fail", Toast.LENGTH_LONG).show();
+//                                    Toast.makeText(mContext, "fail", Toast.LENGTH_LONG).show();
                                 }
                             }
 
@@ -360,12 +360,11 @@ public class FirebaseHandler {
                 .child(getCurrentUser().getUserID()).setValue(1);
     }
 
-    public void returnBook(final Book book, final int res) {
+    public void returnBook(final Book book) {
         myRef.child(FirebaseHandler.LENT_SCAN).child(book.getBookId())
-                .child(getCurrentUser().getUserID()).setValue(res);
-        final User owner = book.getOwner();
-        addRateForUser(owner, res);
+                .child(getCurrentUser().getUserID()).setValue(1);
     }
+
 
     private void addRateForUser(final User user, final int res) {
         myRef.child(mContext.getString(R.string.db_username_email_tuple))
@@ -435,9 +434,9 @@ public class FirebaseHandler {
                 });
     }
 
-    public void returned(final Book book, final int res) {
+    public void returned(final Book book) {
         myRef.child(FirebaseHandler.LENT_SCAN).child(book.getBookId())
-                .child(getCurrentUser().getUserID()).setValue(res);
+                .child(getCurrentUser().getUserID()).setValue(1);
         myRef.child(FirebaseHandler.LENT_SCAN).child(book.getBookId())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
@@ -446,25 +445,6 @@ public class FirebaseHandler {
 
                                 changeBookStatus(book,Book.AVAILABLE);
 
-                                for(DataSnapshot it : dataSnapshot.getChildren()){
-                                    if (!book.getOwner().getUserID().equals(it.getKey())){
-                                        String requesterId = it.getKey();
-                                        myRef.child(mContext.getString(R.string.db_username_email_tuple)).child(requesterId)
-                                                .addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                User owner = dataSnapshot.getValue(User.class);
-                                                if (owner!=null && owner.getUserID()!=null){
-                                                    addRateForUser(owner,res);
-                                                }
-                                            }
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                            }
-                                        });
-                                    }
-                                }
                             myRef.child(Book.BORROWED).child(book.getBookId()).setValue(null);
                             myRef.child(FirebaseHandler.LENT_SCAN).child(book.getBookId())
                                     .setValue(null);

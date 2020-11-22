@@ -34,8 +34,8 @@
     <string name="requested">Requested</string>
     <string name="db_username_email_tuple">username_email_tuple</string>
     <string name="field_username">username</string>
-    <string name="title_my_book">My Bookshelf</string>
-    <string name="title_my_borrow">Borrowing</string>
+    <string name="title_my_book">Owner</string>
+    <string name="title_my_borrow">Borrow</string>
     <string name="add_book">add book</string>
     <string name="title_activity_add_book_screen">add_book_screen</string>
     <string name="prompt_signup_email">email</string>

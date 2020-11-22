@@ -206,9 +206,10 @@ public final class BorrowingFragment extends Fragment {
 
 
         recyclerView = getView().findViewById(R.id.search_res);
-        LinearLayoutManager verticalLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(verticalLayoutManager);
+
         recyclerView.setAdapter(searchBookAdapter);
+                LinearLayoutManager verticalLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(verticalLayoutManager);
     }
 
     private void initSearchview() {
@@ -237,6 +238,7 @@ public final class BorrowingFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
+                Log.d(TAG, "afterTextChanged: "+s);
                 searchBookAdapter.getFilter().filter(s.toString());
 
             }
@@ -372,12 +374,15 @@ public final class BorrowingFragment extends Fragment {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 for (DataSnapshot it : dataSnapshot.getChildren()) {
                     Book temp = it.getValue(Book.class);
+                    Log.d(TAG, "onChildAdded: "+ (temp != null ? temp.getBookId() : null));
                     if (temp != null&& temp.getOwner()!=null) {
-                        if (status.contains(temp.getStatus())
+                        if( status.contains(temp.getStatus())
                                 && !temp.getOwner().getUserID().equals(firebaseHandler.getCurrentUser().getUserID())
                                 && !acceptedAdapter.contains(temp)
                                 && !borrowedAdapter.contains(temp)) {
+                            Log.d(TAG, "addBook: " + temp.getBookId());
                             adapter.addBook(temp);
+                            Log.d(TAG, "addedBook: " + searchBookAdapter.getItemCount());
                         }
 
                     }
